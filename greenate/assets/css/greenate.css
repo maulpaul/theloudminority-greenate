@@ -1,0 +1,228 @@
+/* =========================================================================
+   Greenate — widget styles
+   Token-driven. TODO markers = replace with exact Figma values.
+   ========================================================================= */
+:root {
+	--gnt-green-900: #1b4332; /* dark heading green        TODO */
+	--gnt-green-600: #4f7942; /* badge / accent            TODO */
+	--gnt-green-200: #d8e9c4; /* light card background     TODO */
+	--gnt-ink:       #2f3a2f; /* primary button / text     TODO */
+	--gnt-muted:     #6b7280; /* secondary text            TODO */
+	--gnt-star:      #f5a623; /* rating gold               TODO */
+	--gnt-white:     #ffffff;
+	--gnt-radius:    16px;     /* card radius               TODO */
+	--gnt-gap:       24px;
+}
+
+/* Generic swiper wrapper */
+.gnt-swiper { position: relative; }
+/* Card / testimonial sliders keep their dots below the cards */
+.gnt-products .swiper,
+.gnt-testi .swiper { padding-bottom: 36px; }
+
+/* =========================================================================
+   Banner Carousel
+   ========================================================================= */
+.gnt-banner__slide {
+	position: relative;
+	display: flex;
+	align-items: flex-end;        /* default: text sits lower — overridden by control */
+	justify-content: center;
+	min-height: 460px;
+	background-size: cover;
+	background-position: center;
+	border-radius: var(--gnt-radius);
+	overflow: hidden;
+}
+.gnt-banner__slide::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background: rgba(0, 0, 0, 0.25);
+}
+.gnt-banner__content {
+	position: relative;
+	z-index: 1;
+	max-width: 720px;
+	padding: 24px 24px 56px;
+	text-align: center;
+}
+
+/* Pagination INSIDE the image (default) — Swiper already positions it absolute */
+.gnt-banner.gnt-pg--inside .swiper { padding-bottom: 0; }
+.gnt-banner.gnt-pg--inside .swiper-pagination { position: absolute; bottom: 16px; z-index: 2; }
+
+/* Pagination BELOW the image */
+.gnt-banner.gnt-pg--below .swiper { padding-bottom: 32px; }
+.gnt-banner.gnt-pg--below .swiper-pagination { position: absolute; bottom: 4px; }
+.gnt-banner__title {
+	display: inline-block;
+	margin: 0;
+	color: var(--gnt-white);
+	font-size: clamp(40px, 8vw, 96px);
+	font-weight: 400;
+	line-height: 0.97;
+}
+/* Stabilo-style highlight band — only wraps the word(s) marked with **…** */
+.gnt-banner__title .gnt-hl {
+	position: relative;
+	z-index: 0;
+	white-space: nowrap;
+}
+.gnt-banner__title .gnt-hl::before {
+	content: "";
+	position: absolute;
+	left: -0.08em;
+	right: -0.08em;
+	bottom: 0.12em;                       /* vertical position — controllable */
+	height: 0.5em;                        /* ~half the font — controllable    */
+	background: rgba(118, 169, 80, 0.85); /* highlight color — controllable    */
+	border-radius: 4px;                   /* band radius — controllable        */
+	z-index: -1;
+}
+.gnt-banner__subtitle {
+	margin: 16px 0 24px;
+	color: var(--gnt-white);
+	font-size: 15px;
+	line-height: 1.6;
+}
+.gnt-banner__btn {
+	display: inline-block;
+	padding: 10px 26px;
+	border-radius: 999px;
+	background: var(--gnt-white);
+	color: var(--gnt-ink);
+	font-weight: 600;
+	text-decoration: none;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.gnt-banner__btn:hover { transform: translateY(-2px); box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2); }
+
+/* =========================================================================
+   Product Cards
+   ========================================================================= */
+/* Base container — own background / radius / padding, holds the two inner boxes */
+.gnt-card {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	width: 100%;
+	max-width: 380px;
+	height: 100%;
+	margin: 0 auto;
+	padding: 10px;
+	background: var(--gnt-white);
+	border-radius: 31px;
+}
+/* Inner box 1 — product image */
+.gnt-card__media {
+	position: relative;
+	padding: 24px;
+	text-align: center;
+	background: var(--gnt-white);
+	border-radius: 16px;
+}
+.gnt-card__img { width: 100%; max-width: 100%; height: 180px; object-fit: contain; }
+/* Inner box 2 — info + buttons */
+.gnt-card__body {
+	flex: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 20px;
+	background: var(--gnt-green-200);
+	border-radius: 16px;
+}
+/* Badge: bottom-right of the white image box, dipping into the gap. */
+.gnt-card__badge {
+	position: absolute;
+	right: 16px;
+	bottom: -14px;
+	z-index: 2;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1px;
+	padding: 6px 12px;
+	border-radius: 8px;
+	background: var(--gnt-green-600);
+	color: var(--gnt-white);
+	line-height: 1.05;
+	text-align: center;
+	white-space: nowrap;
+}
+.gnt-card__badge-main { font-size: 18px; font-weight: 700; }
+.gnt-card__badge-sub  { font-size: 10px; font-weight: 600; opacity: 0.95; }
+.gnt-card__title { margin: 0; color: var(--gnt-green-900); font-size: 18px; font-weight: 700; }
+.gnt-card__desc  { margin: 0; color: var(--gnt-ink); font-size: 13px; line-height: 1.5; }
+.gnt-card__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; justify-content: flex-start; }
+.gnt-card__btn {
+	flex: 0 0 auto;
+	padding: 9px 16px;
+	border: 1px solid transparent;
+	border-radius: 8px;
+	font-size: 13px;
+	font-weight: 600;
+	text-align: center;
+	text-decoration: none;
+	transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.gnt-card__btn--ghost   { background: var(--gnt-white); color: var(--gnt-ink); border-color: #d8e0d0; }
+.gnt-card__btn--primary { background: var(--gnt-ink); color: var(--gnt-white); }
+.gnt-card__btn--ghost:hover   { background: var(--gnt-ink); color: var(--gnt-white); border-color: var(--gnt-ink); }
+.gnt-card__btn--primary:hover { background: #46563f; }
+
+/* =========================================================================
+   Testimonials
+   ========================================================================= */
+.gnt-testi { text-align: center; }
+.gnt-testi__heading {
+	margin: 0 0 40px;
+	color: var(--gnt-green-900);
+	font-size: clamp(26px, 4vw, 40px);
+	font-weight: 800;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+}
+/* Room: top for the avatar overhang, bottom for the lowered side cards + dots */
+.gnt-testi .swiper { padding-top: 56px; padding-bottom: 84px; }
+.gnt-testi .swiper-wrapper { align-items: stretch; }
+.gnt-testi .swiper-slide { height: auto; display: flex; }
+.gnt-testi__card {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	margin-top: 56px;
+	padding: 72px 24px 28px;
+	border-radius: var(--gnt-radius);
+	background: var(--gnt-green-200);
+	text-align: center;
+	transition: transform 0.6s ease;
+	will-change: transform;
+}
+.gnt-testi__avatar {
+	position: absolute;
+	top: -56px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 96px;
+	height: 96px;
+	border-radius: 14px;
+	overflow: hidden;
+	box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+.gnt-testi__avatar img { width: 100%; height: 100%; object-fit: cover; }
+.gnt-testi__name  { margin: 0 0 2px; color: var(--gnt-green-900); font-size: 18px; font-weight: 700; }
+.gnt-testi__role  { margin: 0 0 10px; color: var(--gnt-muted); font-size: 12px; }
+.gnt-testi__stars { margin-bottom: 14px; font-size: 18px; letter-spacing: 2px; }
+.gnt-testi__stars .gnt-star { color: #cbd5c0; }
+.gnt-testi__stars .gnt-star.is-on { color: var(--gnt-star); }
+.gnt-testi__quote { margin: 0; color: var(--gnt-ink); font-size: 13px; line-height: 1.6; }
+
+/* =========================================================================
+   Swiper controls — neutral defaults, override per Figma
+   ========================================================================= */
+.gnt-swiper .swiper-pagination-bullet-active { background: var(--gnt-green-600); }
+.gnt-swiper .swiper-button-prev,
+.gnt-swiper .swiper-button-next { color: var(--gnt-green-600); }
